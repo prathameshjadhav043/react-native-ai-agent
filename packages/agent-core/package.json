@@ -1,0 +1,10 @@
+{
+  "name": "@rn-agent/agent-core",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "dependencies": { "@rn-agent/shared": "0.1.0", "typescript": "~5.9.3" },
+  "scripts": { "clean": "rm -rf dist *.tsbuildinfo" }
+}

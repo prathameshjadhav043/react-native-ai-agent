@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  check-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run package
+      - run: npm run bridge:pack
+      - uses: actions/upload-artifact@v4
+        with:
+          name: react-native-ai-agent-build
+          path: |
+            outputs/react-native-ai-agent-0.1.0.vsix
+            outputs/rn-agent-runtime-bridge-0.1.0.tgz

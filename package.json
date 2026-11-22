@@ -1,0 +1,30 @@
+{
+  "name": "react-native-ai-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A React Native focused AI agent and runtime inspector for Visual Studio Code.",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/prathameshjadhav043/react-native-ai-agent.git" },
+  "homepage": "https://github.com/prathameshjadhav043/react-native-ai-agent#readme",
+  "bugs": { "url": "https://github.com/prathameshjadhav043/react-native-ai-agent/issues" },
+  "workspaces": ["packages/*"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "clean": "npm run clean --workspaces --if-present",
+    "build": "tsc -b && npm run bundle --workspace=packages/vscode-extension",
+    "typecheck": "tsc -b --pretty false",
+    "test": "vitest run",
+    "bridge:pack": "tsc -b packages/runtime-bridge && mkdir -p outputs && npm pack -w @rn-agent/runtime-bridge --pack-destination outputs",
+    "package": "npm run build && mkdir -p outputs && cd packages/vscode-extension && ../../node_modules/.bin/vsce package --no-dependencies --allow-missing-repository --out ../../outputs/react-native-ai-agent-0.1.0.vsix",
+    "check": "npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/vscode": "^1.95.0",
+    "@types/ws": "^8.5.14",
+    "@vscode/vsce": "^3.2.2",
+    "esbuild": "^0.25.0",
+    "typescript": "~5.9.3",
+    "vitest": "^3.0.8"
+  }
+}

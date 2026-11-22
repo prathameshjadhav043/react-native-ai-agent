@@ -1,0 +1,10 @@
+{
+  "name": "@rn-agent/runtime-bridge",
+  "version": "0.1.0",
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist/index.js", "dist/index.d.ts"],
+  "scripts": { "clean": "rm -rf dist *.tsbuildinfo" }
+}

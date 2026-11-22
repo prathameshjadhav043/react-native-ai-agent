@@ -1,0 +1,56 @@
+{
+  "name": "react-native-ai-agent",
+  "displayName": "React Native AI Agent",
+  "description": "AI coding assistance and local React Native runtime inspection.",
+  "version": "0.1.0",
+  "publisher": "rn-agent-community",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/prathameshjadhav043/react-native-ai-agent.git" },
+  "engines": { "vscode": "^1.95.0" },
+  "categories": ["AI", "Debuggers", "Other"],
+  "keywords": ["react-native", "ai", "debugging", "network", "agent"],
+  "main": "./dist/extension.js",
+  "activationEvents": ["onStartupFinished"],
+  "scripts": {
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "bundle": "rm -rf dist && esbuild src/extension.ts src/webview.ts --bundle --platform=node --target=node20 --format=cjs --external:vscode --outdir=dist --entry-names=[name] --minify --legal-comments=none"
+  },
+  "dependencies": {
+    "@rn-agent/agent-core": "0.1.0",
+    "@rn-agent/runtime-bridge": "0.1.0",
+    "@rn-agent/shared": "0.1.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {},
+  "contributes": {
+    "commands": [
+      { "command": "rnAgent.setApiKey", "title": "RN Agent: Set API Key" },
+      { "command": "rnAgent.clearApiKey", "title": "RN Agent: Clear API Key" },
+      { "command": "rnAgent.showRuntimeSetup", "title": "RN Agent: Show Runtime Bridge Setup" },
+      { "command": "rnAgent.rebuildArchitecture", "title": "RN Agent: Rebuild Project Architecture Index" }
+    ],
+    "viewsContainers": {
+      "activitybar": [{ "id": "rnAgent", "title": "RN Agent", "icon": "resources/rn-agent.svg" }],
+      "panel": [{ "id": "rnAgentDebug", "title": "React Native", "icon": "resources/rn-agent.svg" }]
+    },
+    "views": {
+      "rnAgent": [{ "type": "webview", "id": "rnAgent.chat", "name": "AI Agent" }],
+      "rnAgentDebug": [
+        { "type": "webview", "id": "rnAgent.console", "name": "RN Console" },
+        { "type": "webview", "id": "rnAgent.network", "name": "Network" },
+        { "type": "webview", "id": "rnAgent.errors", "name": "Errors" },
+        { "type": "webview", "id": "rnAgent.performance", "name": "Performance" }
+      ]
+    },
+    "configuration": {
+      "title": "React Native AI Agent",
+      "properties": {
+        "rnAgent.provider.baseUrl": { "type": "string", "default": "https://api.openai.com/v1", "description": "OpenAI-compatible Chat Completions API base URL." },
+        "rnAgent.provider.model": { "type": "string", "default": "gpt-4o-mini", "description": "Model name accepted by the configured provider." },
+        "rnAgent.bridge.enabled": { "type": "boolean", "default": true, "description": "Start the local React Native runtime event bridge." },
+        "rnAgent.bridge.host": { "type": "string", "default": "127.0.0.1", "description": "Interface address for the runtime bridge. Use 0.0.0.0 only when connecting from a physical device on a trusted network." },
+        "rnAgent.bridge.port": { "type": "number", "default": 43127, "minimum": 1024, "maximum": 65535, "description": "Local runtime bridge WebSocket port." }
+      }
+    }
+  }
+}

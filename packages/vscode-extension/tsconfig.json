@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "lib": ["ES2022", "DOM"],
+    "types": ["node", "vscode"]
+  },
+  "references": [
+    { "path": "../shared" },
+    { "path": "../agent-core" },
+    { "path": "../runtime-bridge" }
+  ],
+  "include": ["src/**/*.ts"]
+}
